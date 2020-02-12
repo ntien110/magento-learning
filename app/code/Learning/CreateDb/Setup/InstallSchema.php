@@ -105,7 +105,7 @@ class InstallSchema implements InstallSchemaInterface
                 MagType::TYPE_TIMESTAMP
             );
 
-
+        //code sau dòng này không chạy
         $table = $setup->getConnection()
             -> newTable($setup->getTable('film_actor'))
             -> addForeignKey(
