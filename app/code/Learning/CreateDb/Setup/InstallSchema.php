@@ -1,10 +1,11 @@
 <?php
 /**
-* Copyright © 2016 Magento. All rights reserved.
-* See COPYING.txt for license details.
-*/
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
 
-namespace Learning\GreetingMessage\Setup;
+namespace Learning\CreateDb\Setup;
+
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
@@ -17,9 +18,9 @@ use phpDocumentor\Reflection\Types\Nullable;
 class InstallSchema implements InstallSchemaInterface
 {
     /**
-    * {@inheritdoc}
-    * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
-    */
+     * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     */
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $table = $setup->getConnection()
@@ -28,18 +29,18 @@ class InstallSchema implements InstallSchemaInterface
                 'actor_id',
                 MagType::TYPE_INTEGER,
                 10,
-                ['identity'=>true, 'unsigned'=>true, 'nullable'=>false, 'primary'=> true])
+                ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true])
             ->addColumn(
                 'first_name',
                 MagType::TYPE_TEXT,
                 255,
-                ['default'=>'']
+                ['default' => '']
             )
             ->addColumn(
                 'last_name',
                 MagType::TYPE_TEXT,
                 255,
-                ['default'=>'']
+                ['default' => '']
             )
             ->addColumn(
                 'created_at',
@@ -58,18 +59,18 @@ class InstallSchema implements InstallSchemaInterface
                 'film_id',
                 MagType::TYPE_INTEGER,
                 10,
-                ['identity'=>true, 'unsigned'=>true, 'nullable'=>false, 'primary'=> true])
+                ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true])
             ->addColumn(
                 'title',
                 MagType::TYPE_TEXT,
                 255,
-                ['default'=>'']
+                ['default' => '']
             )
             ->addColumn(
                 'description',
                 MagType::TYPE_TEXT,
                 null,
-                ['default'=>'']
+                ['default' => '']
             )
             ->addColumn(
                 'language_id',
@@ -88,7 +89,7 @@ class InstallSchema implements InstallSchemaInterface
             ->addColumn(
                 'rental_rate',
                 MagType::TYPE_DECIMAL,
-                [4,2]
+                [4, 2]
             )->addColumn(
                 'length',
                 MagType::TYPE_SMALLINT,
@@ -96,7 +97,7 @@ class InstallSchema implements InstallSchemaInterface
             )->addColumn(
                 'replacement_cost',
                 MagType::TYPE_DECIMAL,
-                [5,2]
+                [5, 2]
             )->addColumn(
                 'created_at',
                 MagType::TYPE_TIMESTAMP
@@ -104,22 +105,57 @@ class InstallSchema implements InstallSchemaInterface
                 'updated_at',
                 MagType::TYPE_TIMESTAMP
             );
+        $setup->getConnection()->createTable($table);
+
+        $table = $setup->getConnection()
+            ->newTable($setup->getTable('category'))
+            ->addColumn(
+                'category_id',
+                MagType::TYPE_INTEGER,
+                10,
+                ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true]
+            )
+            ->addColumn(
+                'name',
+                MagType::TYPE_TEXT,
+                255
+            )
+            ->addColumn(
+                'created_at',
+                MagType::TYPE_TIMESTAMP
+            )
+            ->addColumn(
+                'updated_at',
+                MagType::TYPE_TIMESTAMP
+            );
+        $setup->getConnection()->createTable($table);
 
         //code sau dòng này không chạy
         $table = $setup->getConnection()
-            -> newTable($setup->getTable('film_actor'))
-            -> addForeignKey(
+            ->newTable($setup->getTable('film_actor'))
+            ->addColumn(
+                'actor_id',
+                MagType::TYPE_INTEGER,
+                10,
+                ['unsigned' => true, 'nullable' => false])
+            ->addColumn(
+                'film_id',
+                MagType::TYPE_INTEGER,
+                10,
+                ['unsigned' => true, 'nullable' => false])
+            ->addForeignKey(
                 $setup->getFkName(
                     'film_actor',
                     'actor_id',
                     'actor',
                     'actor_id'
-                    ),
+                ),
                 'actor_id',
                 $setup->getTable('actor'),
-                'actor_id'
+                'actor_id',
+                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             )
-            -> addForeignKey(
+            ->addForeignKey(
                 $setup->getFkName(
                     'film_actor',
                     'film_id',
@@ -128,38 +164,27 @@ class InstallSchema implements InstallSchemaInterface
                 ),
                 'film_id',
                 $setup->getTable('film'),
-                'film_id'
+                'film_id',
+                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             );
         $setup->getConnection()->createTable($table);
 
 
         $table = $setup->getConnection()
-            ->newTable($setup->getTable('category'))
+            ->newTable($setup->getTable('film_category'))
             ->addColumn(
                 'category_id',
                 MagType::TYPE_INTEGER,
                 10,
-                ['identity'=>true, 'unsigned'=>true, 'nullable'=>false, 'primary'=> true]
+                ['unsigned' => true, 'nullable' => false]
             )
-            -> addColumn(
-                'name',
-                MagType::TYPE_TEXT,
-                255
+            ->addColumn(
+                'film_id',
+                MagType::TYPE_INTEGER,
+                10,
+                ['unsigned' => true, 'nullable' => false]
             )
-            -> addColumn(
-                'created_at',
-                MagType::TYPE_TIMESTAMP
-            )
-            -> addColumn(
-                'updated_at',
-                MagType::TYPE_TIMESTAMP
-            );
-        $setup->getConnection()->createTable($table);
-
-
-        $table = $setup->getConnection()
-            -> newTable($setup->getTable('film_category'))
-            -> addForeignKey(
+            ->addForeignKey(
                 $setup->getFkName(
                     'film_category',
                     'catefory_id',
@@ -168,9 +193,10 @@ class InstallSchema implements InstallSchemaInterface
                 ),
                 'category_id',
                 $setup->getTable('category'),
-                'category_id'
+                'category_id',
+                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             )
-            -> addForeignKey(
+            ->addForeignKey(
                 $setup->getFkName(
                     'film_category',
                     'film_id',
@@ -179,7 +205,8 @@ class InstallSchema implements InstallSchemaInterface
                 ),
                 'film_id',
                 $setup->getTable('film'),
-                'film_id'
+                'film_id',
+                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             );
         $setup->getConnection()->createTable($table);
     }
