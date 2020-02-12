@@ -21,6 +21,8 @@ class UpgradeSchema implements UpgradeSchemaInterface
     public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
+
+
         if (version_compare($context->getVersion(), '0.0.2', '<')) {
             $table = $setup->getConnection()
                 ->newTable($setup->getTable('webpos_location'))
@@ -45,6 +47,35 @@ class UpgradeSchema implements UpgradeSchemaInterface
                     ['nullable' => false, 'default' => ''],
                     'Address');
             $setup->getConnection()->createTable($table);
+        }
+
+
+        if (version_compare($context->getVersion(), '0.0.3', '<')){
+            $setup->getConnection()->addColumn(
+                $setup->getTable('film_actor'),
+                'id',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    'length' => 10,
+                    'nullable' => false,
+                    'identity'=>true,
+                    'primary'=>true,
+                    'comment'=>"Id"
+                ]
+            );
+
+            $setup->getConnection()->addColumn(
+                $setup->getTable('film_category'),
+                'id',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    'length' => 10,
+                    'nullable' => false,
+                    'identity'=>true,
+                    'primary'=>true,
+                    'comment'=>'Id'
+                ]
+            );
         }
         $setup->endSetup();
     }
