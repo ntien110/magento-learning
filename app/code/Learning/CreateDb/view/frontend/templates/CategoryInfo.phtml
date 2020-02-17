@@ -1,0 +1,8 @@
+<h1 class="CategoryInfo">
+    <?php
+        $categories=$block->getProductCategory();
+    foreach ($categories as $category) {
+            echo $category->getName()."<br/>";
+        }
+    ?>
+</h1>

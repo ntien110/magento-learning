@@ -2,11 +2,12 @@
 
 namespace Learning\CreateDb\Controller\ShowData;
 
-use Learning\CreateDb\Model\ResourceModel\Film\Collection as FilmCollection;
+use Learning\CreateDb\Model\ResourceModel\Film\CollectionFactory as FilmCollectionFactory;
 use Learning\CreateDb\Model\ResourceModel\Actor\Collection as ActorCollection;
 use Learning\CreateDb\Model\ResourceModel\FilmActor\Collection as FilmActorCollection;
 use Learning\CreateDb\Model\ResourceModel\FilmCategory\Collection as FilmCategoryCollection;
 use Learning\CreateDb\Model\ResourceModel\Category\Collection as CategoryCollection;
+use phpDocumentor\Reflection\Types\This;
 
 class View extends \Magento\Framework\App\Action\Action
 {
@@ -24,7 +25,7 @@ class View extends \Magento\Framework\App\Action\Action
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        FilmCollection $filmCollection,
+        FilmCollectionFactory $filmCollection,
         ActorCollection $actorCollection,
         CategoryCollection $categoryCollection,
         filmActorCollection $filmActorCollection,
@@ -56,15 +57,31 @@ class View extends \Magento\Framework\App\Action\Action
 //            echo '<br/><br/>';
 //        }
 
-        $films=$this->filmCollection->getFilms();
 
+//        $query= $this->filmCollection->getSelect()
+//            ->joinLeft(
+//                array('filmActor'=>'film_actor'),
+//                'main_table.film_id=filmActor.film_id',
+//                array('numberOfActor'=>'COUNT(actor_id)'))
+//            ->having('numberOfActor >=5')
+//            ->group('main_table.film_id');
 
-        foreach ($films as $film) {
-            foreach ($film as $key => $value) {
+//        get 5 film which have more than 5 actors
+//        foreach ($this->filmCollection->create()->getFilmsHaveMoreThanFiveActors() as $film) {
+//            foreach ($film->getData() as $key => $value) {
+//                echo $key . ' : ' . $value. '</br>';
+//            }
+//            echo '<br/><br/>';
+//        }
+
+        foreach ($this->filmCollection->create()->getFilmsHaveTheMostActors() as $film) {
+            foreach ($film->getData() as $key => $value) {
                 echo $key . ' : ' . $value. '</br>';
             }
             echo '<br/><br/>';
         }
+
+
     }
 }
 

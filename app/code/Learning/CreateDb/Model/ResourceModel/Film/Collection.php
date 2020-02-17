@@ -12,21 +12,28 @@ class Collection extends AbstractCollection
         $this->_init(Model::class, ResourceModel::class);
     }
 
-    public function getFilms()
+    public function getFilmsHaveMoreThanFiveActors()
     {
-        $query= $this->getSelect()
+        $this->getSelect()
             ->joinLeft(
                 array('filmActor'=>'film_actor'),
                 'main_table.film_id=filmActor.film_id',
                 array('numberOfActor'=>'COUNT(actor_id)'))
             ->having('numberOfActor >=5')
             ->group('main_table.film_id');
+        return $this;
+    }
 
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
-        $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
-        $connection = $resource->getConnection();
-
-        return $connection->fetchAll($query);
+    public function  getFilmsHaveTheMostActors($limit = 5){
+        $this->getSelect()
+            ->joinLeft(
+                ['filmActor'=> 'film_actor'],
+                'main_table.film_id=filmActor.film_id',
+                ['numberOfActor'=>'Count(actor_id)'])
+            ->group('main_table.film_id')
+            ->order('numberOfActor DESC')
+            ->limit($limit);
+        return $this;
     }
 }
 

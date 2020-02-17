@@ -1,0 +1,14 @@
+<h1 class="customLoginForm">
+    CUSTOM LOGIN FORM
+    <?php
+    if ($block->isLoggedIn() == true) {
+        echo 'logged in';
+    } else {
+        echo '<form id="login" name="login" action="' . $block->getFormAction() . '" method="post">
+    <input name="login[username]" type="email" id="email">
+    <input name="login[password]" type="password" id="password">
+    <input type="submit" value="Login">
+    </form>';
+    }
+    ?>
+</h1>

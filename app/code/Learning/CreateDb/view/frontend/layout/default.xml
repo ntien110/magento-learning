@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Learning_CreateDb::css//custom.css"/>
+    </head>
+    <body>
+        <referenceContainer name="product.info.form.content">
+            <block class="Learning\CreateDb\Block\CategoryInfo" name="custom.product.info.right"
+                   template="Learning_CreateDb::CategoryInfo.phtml" before="-"/>
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <block class="Learning\CreateDb\Block\Login" name="custom.login.form"
+                   template="Learning_CreateDb::Login.phtml" before="-"/>
+        </referenceContainer>
+    </body>
+</page>
