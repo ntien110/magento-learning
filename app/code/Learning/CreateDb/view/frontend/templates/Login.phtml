@@ -1,13 +1,34 @@
+<script>
+    require(['jquery', 'jquery/ui', 'mage/translate'], function($){
+        $(document).ready(function(){
+            $('#custom_login').submit(function(e){
+                e.preventDefault();
+                var form = $(this);
+                var post_url = '<?php echo $block->getFormAction()?>';
+                var post_data = form.serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: post_url,
+                    data: post_data,
+                    success: function(msg) {
+                        $('.customLoginForm').html(msg);
+                    }
+                });
+            });
+        });
+    });
+</script>
 <h1 class="customLoginForm">
     CUSTOM LOGIN FORM <br/>
     <?php
     if ($block->isLoggedIn() == true) {
         echo 'logged in';
     } else {
-        echo '<form id="login" name="login" action="' . $block->getFormAction() . '" method="post">
-    <input name="login[username]" type="email" id="email">
-    <input name="login[password]" type="password" id="password">
-    <input type="submit" value="Login">
+        echo '<form data-mage-init=\'{"validation":{}}\' id="custom_login" name="login" action="" method="post">
+    <input name="login[username]" id="email"  data-validate="{required:true, \'validate-email\':true,equalTo:\'#email\'}">
+    <input name="login[password]" type="password" id="password" data-validate="{required:true}">
+    <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton(\'core/session\')->getFormKey() ?>" />
+    <button type="submit">Login</button>
     </form>';
     }
     ?>

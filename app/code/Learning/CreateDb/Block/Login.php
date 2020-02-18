@@ -7,7 +7,7 @@ use Magento\Customer\Model\Session as CustomerSession;
 
 class Login extends Template
 {
-    private $session;
+    protected $session;
 
     public function __construct(
         Template\Context $context,
@@ -25,10 +25,12 @@ class Login extends Template
 
     public function getFormAction()
     {
-        return 'customer/Account/LoginPost';
+        $_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        //instance of\Magento\Framework\App\ObjectManager
+        $storeManager = $_objectManager->get('Magento\Store\Model\StoreManagerInterface');
+        $currentStore = $storeManager->getStore();
+        $linkUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK);
+        return $linkUrl.'test/Login/LoginPost';
     }
 
-    public function login($email, $password)
-    {
-    }
 }
