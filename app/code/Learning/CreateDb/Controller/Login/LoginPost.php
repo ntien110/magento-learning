@@ -99,12 +99,12 @@ class LoginPost extends \Magento\Customer\Controller\Account\LoginPost
      */
     public function execute()
     {
-        if ($this->session->isLoggedIn() || !$this->formKeyValidator->validate($this->getRequest())) {
-            /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
-            $resultRedirect = $this->resultRedirectFactory->create();
-            $resultRedirect->setPath('*/*/');
-            return $resultRedirect;
-        }
+//        if ($this->session->isLoggedIn() || !$this->formKeyValidator->validate($this->getRequest())) {
+//            /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+//            $resultRedirect = $this->resultRedirectFactory->create();
+//            $resultRedirect->setPath('*/*/');
+//            return $resultRedirect;
+//        }
 
         if ($this->getRequest()->isPost()) {
             $login = $this->getRequest()->getPost('login');
@@ -159,7 +159,7 @@ class LoginPost extends \Magento\Customer\Controller\Account\LoginPost
             }
         }
         return $this->getResponse()->setBody(
-            'CUSTOM LOGIN FORM <br/>' . ($this->session->isLoggedIn() == true) ? 'logged in' : 'failed');
+            'CUSTOM LOGIN FORM <br/>' . ($this->session->isLoggedIn() == true) ? '<h1>logged in</h1>' : 'failed');
     }
 }
 

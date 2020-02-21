@@ -1,7 +1,12 @@
 <script>
-    require(['jquery', 'jquery/ui', 'mage/translate'], function($){
-        $(document).ready(function(){
-            $('#custom_login').submit(function(e){
+    require(['jquery', 'jquery/ui', 'mage/translate'], function ($) {
+        //if (<?php //echo $block->isLoggedIn()?>//){
+        //    $('#login_status').html("Logged in");
+        //    $('#custom_login').hide();
+        //
+        //}
+        $(document).ready(function () {
+            $('#custom_login').submit(function (e) {
                 e.preventDefault();
                 var form = $(this);
                 var post_url = '<?php echo $block->getFormAction()?>';
@@ -10,26 +15,56 @@
                     type: 'POST',
                     url: post_url,
                     data: post_data,
-                    success: function(msg) {
-                        $('.customLoginForm').html(msg);
+                    success: function (msg) {
+                        $('#custom_login').html(msg);
                     }
                 });
             });
         });
     });
 </script>
-<h1 class="customLoginForm">
-    CUSTOM LOGIN FORM <br/>
-    <?php
-    if ($block->isLoggedIn() == true) {
-        echo 'logged in';
-    } else {
-        echo '<form data-mage-init=\'{"validation":{}}\' id="custom_login" name="login" action="" method="post">
-    <input name="login[username]" id="email"  data-validate="{required:true, \'validate-email\':true,equalTo:\'#email\'}">
-    <input name="login[password]" type="password" id="password" data-validate="{required:true}">
-    <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton(\'core/session\')->getFormKey() ?>" />
-    <button type="submit">Login</button>
-    </form>';
-    }
-    ?>
-</h1>
+
+<?php if (!$block->isLoggedIn()) : ?>
+    <h1 id="login_status"></h1>
+    <form data-mage-init='{"validation":{}}' id="custom_login" name="login" method="post">
+        <fieldset class="fieldset login" data-hasrequired="* Required Fields">
+            <div class="field email required">
+                <label class="label" for="email"><span>Email</span></label>
+                <div class="control">
+                    <input name="login[username]" autocomplete="off" id="custom_email" type="email" class="input-text"
+                           title="Email" data-validate="{required:true, 'validate-email':true}" aria-required="true">
+                </div>
+            </div>
+            <div class="field password required">
+                <label for="pass" class="label"><span>Password</span></label>
+                <div class="control">
+                    <input name="login[password]" type="password" autocomplete="off" class="input-text" id="custom_pass"
+                           title="Password" data-validate="{required:true}" aria-required="true">
+                </div>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" class="action login primary" name="send" id="custom_send2"><span>Sign In</span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+<?php endif; ?>
+
+
+<!--<h1 class="customLoginForm">-->
+<!--    CUSTOM LOGIN FORM <br/>-->
+<!--    --><?php
+//    if ($block->isLoggedIn() == true) {
+//        echo 'logged in';
+//    } else {
+//        echo '<form data-mage-init=\'{"validation":{}}\' id="custom_login" name="login" action="" method="post">
+//    <input name="login[username]" id="email"  data-validate="{required:true, \'validate-email\':true,equalTo:\'#email\'}">
+//    <input name="login[password]" type="password" id="password" data-validate="{required:true}">
+/*    <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton(\'core/session\')->getFormKey() ?>" />*/
+//    <button type="submit">Login</button>
+//    </form>';
+//    }
+//    ?>
+<!--</h1>-->

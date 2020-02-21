@@ -19,7 +19,7 @@ class View extends \Magento\Framework\App\Action\Action
     protected $filmActorCollection;
     protected $filmCategoryCollection;
     protected $categoryCollection;
-
+    protected $logger;
     /**
      * @param \Magento\Framework\App\Action\Context $context
      */
@@ -29,8 +29,10 @@ class View extends \Magento\Framework\App\Action\Action
         ActorCollection $actorCollection,
         CategoryCollection $categoryCollection,
         filmActorCollection $filmActorCollection,
-        FilmCategoryCollection $filmCategoryCollection)
+        FilmCategoryCollection $filmCategoryCollection,
+        \Learning\CreateDb\Logger\Logger $logger)
     {
+        $this->logger=$logger;
         $this->filmCollection = $filmCollection;
         $this->actorCollection = $actorCollection;
         $this->filmActorCollection = $filmActorCollection;
@@ -46,6 +48,8 @@ class View extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
+        $this->logger->info('Shown data');
+
 //        print all record in Film table
 //        echo "Films:<br>";
 //
