@@ -45,8 +45,7 @@ class StudentRepository implements \Learning\Student\Api\StudentRepositoryInterf
         \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor,
         \Learning\Student\Api\Data\StudentSearchResultsInterfaceFactory $searchResultsFactory,
         \Learning\Student\Api\Data\StudentInterfaceFactory $studentFactory
-    )
-    {
+    ) {
         $this->studentFactory = $studentFactory;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->resourceModel = $resourceModel;

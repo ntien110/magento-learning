@@ -4,8 +4,14 @@ namespace Learning\Student\Controller\test;
 
 class View extends \Magento\Framework\App\Action\Action
 {
+    /**
+     * @var \Learning\Student\Api\StudentRepositoryInterface
+     */
     protected $studentRepository;
 
+    /**
+     * @var \Learning\CreateDb\Logger\Logger
+     */
     protected $logger;
 
     /**
@@ -32,7 +38,7 @@ class View extends \Magento\Framework\App\Action\Action
     {
         $this->logger->info('testing StudentInterface');
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $student = $objectManager->create('\Learning\Student\Api\Data\StudentInterface');
+        $student = $objectManager->create(\Learning\Student\Api\Data\StudentInterface::class);
         $student->setName("testName");
         $student->setClass("testClass");
         $student->setUniversity("testUniversity");
@@ -40,4 +46,3 @@ class View extends \Magento\Framework\App\Action\Action
         echo 'ok';
     }
 }
-

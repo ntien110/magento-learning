@@ -24,8 +24,8 @@ class Student extends AbstractModel implements \Learning\Student\Api\Data\Studen
         \Magento\Framework\Registry $registry,
         \Learning\Student\Model\ResourceModel\Student $resource,
         \Learning\Student\Model\ResourceModel\Student\Collection $resourceCollection,
-        array $data = [])
-    {
+        array $data = []
+    ) {
         parent::__construct(
             $context,
             $registry,
