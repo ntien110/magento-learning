@@ -1,6 +1,8 @@
 <?php
 namespace Learning\Student\Model;
 
+use mysql_xdevapi\Exception;
+
 /**
  * Class StudentRepository
  */
@@ -33,6 +35,7 @@ class StudentRepository implements \Learning\Student\Api\StudentRepositoryInterf
 
     /**
      * StudentRepository constructor.
+     *
      * @param ResourceModel\Student\CollectionFactory $collectionFactory
      * @param ResourceModel\Student $resourceModel
      * @param \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor
@@ -45,7 +48,8 @@ class StudentRepository implements \Learning\Student\Api\StudentRepositoryInterf
         \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor,
         \Learning\Student\Api\Data\StudentSearchResultsInterfaceFactory $searchResultsFactory,
         \Learning\Student\Api\Data\StudentInterfaceFactory $studentFactory
-    ) {
+    )
+    {
         $this->studentFactory = $studentFactory;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->resourceModel = $resourceModel;
@@ -54,21 +58,25 @@ class StudentRepository implements \Learning\Student\Api\StudentRepositoryInterf
     }
 
     /**
-     * save student info
+     * Save student info
      *
      * @param \Learning\Student\Api\Data\StudentInterface $student
      * @return \Learning\Student\Api\Data\StudentInterface
      */
     public function save(\Learning\Student\Api\Data\StudentInterface $student)
     {
-        $this->resourceModel->save($student);
-        return $student;
+        try {
+            $this->resourceModel->save($student);
+            return $student;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     /**
-     * get list of students which fit the search criteria
+     * Get list of students which fit the search criteria
      *
-     * example: http://localhost/learning-magento/index.php/rest/V1/api/student/search?searchCriteria[filterGroups][0][filters][0][field]=name&searchCriteria[filterGroups][0][filters][0][value]=testing&searchCriteria[filterGroups][0][filters][0][conditionType]=like
+     * Example: http://localhost/learning-magento/index.php/rest/V1/api/student/search?searchCriteria[filterGroups][0][filters][0][field]=name&searchCriteria[filterGroups][0][filters][0][value]=testing&searchCriteria[filterGroups][0][filters][0][conditionType]=like
      *
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
      * @return \Learning\Student\Api\Data\StudentSearchResultsInterface
@@ -87,16 +95,16 @@ class StudentRepository implements \Learning\Student\Api\StudentRepositoryInterf
     }
 
     /**
-     * delete student with id
+     * Delete student with id
      *
      * @param int $id
-     * @return \Learning\Student\Api\Data\StudentInterface|ResourceModel\Student|string
+     * @return \Learning\Student\Api\Data\StudentInterface|ResourceModel
      */
     public function delete(int $id)
     {
         $student = $this->studentFactory->create()->load($id);
         if ($student->getId() == null) {
-            return "Student with ID = $id do not exist.";
+            throw new Exception("Can not find student with id = $id");
         }
         $this->resourceModel->delete($student);
         return $student;

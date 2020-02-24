@@ -22,7 +22,7 @@ interface StudentInterface
     /**#@+*/
 
     /**
-     * set student name
+     * Set student name
      *
      * @param string $name
      * @return StudentInterface
@@ -30,14 +30,14 @@ interface StudentInterface
     public function setName($name);
 
     /**
-     * student name
+     * Student name
      *
      * @return string
      */
     public function getName();
 
     /**
-     * set student ID
+     * Set student ID
      *
      * @param int $id
      * @return StudentInterface
@@ -45,14 +45,14 @@ interface StudentInterface
     public function setStudentId($id);
 
     /**
-     * student ID
+     * Student ID
      *
      * @return int
      */
     public function getStudentId();
 
     /**
-     * set student class
+     * Set student class
      *
      * @param string $class
      * @return StudentInterface
@@ -60,21 +60,21 @@ interface StudentInterface
     public function setClass($class);
 
     /**
-     * student class
+     * Student class
      *
      * @return string
      */
     public function getClass();
 
     /**
-     * set student university
+     * Set student university
      * @param string $university
      * @return StudentInterface
      */
     public function setUniversity($university);
 
     /**
-     * student university
+     * Student university
      *
      * @return string
      */

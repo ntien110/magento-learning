@@ -13,6 +13,7 @@ class Student extends AbstractModel implements \Learning\Student\Api\Data\Studen
 {
     /**
      * Student resource constructor.
+     *
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param ResourceModel $resource
@@ -35,7 +36,7 @@ class Student extends AbstractModel implements \Learning\Student\Api\Data\Studen
     }
 
     /**
-     * secondary constructor
+     * Secondary constructor
      */
     public function _construct()
     {
@@ -43,7 +44,7 @@ class Student extends AbstractModel implements \Learning\Student\Api\Data\Studen
     }
 
     /**
-     * set student name
+     * Set student name
      *
      * @param string $name
      * @return \Learning\Student\Api\Data\StudentInterface
@@ -54,7 +55,7 @@ class Student extends AbstractModel implements \Learning\Student\Api\Data\Studen
     }
 
     /**
-     * set student class
+     * Set student class
      *
      * @param string $class
      * @return \Learning\Student\Api\Data\StudentInterface
@@ -65,7 +66,7 @@ class Student extends AbstractModel implements \Learning\Student\Api\Data\Studen
     }
 
     /**
-     * set student university
+     * Set student university
      *
      * @param string $university
      * @return \Learning\Student\Api\Data\StudentInterface
@@ -76,7 +77,7 @@ class Student extends AbstractModel implements \Learning\Student\Api\Data\Studen
     }
 
     /**
-     * set student ID
+     * Set student ID
      *
      * @param int $id
      * @return \Learning\Student\Api\Data\StudentInterface
@@ -87,7 +88,7 @@ class Student extends AbstractModel implements \Learning\Student\Api\Data\Studen
     }
 
     /**
-     * student name
+     * Student name
      *
      * @return string
      */
@@ -117,7 +118,7 @@ class Student extends AbstractModel implements \Learning\Student\Api\Data\Studen
     }
 
     /**
-     * student ID
+     * Student ID
      *
      * @return int
      */
