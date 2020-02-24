@@ -11,7 +11,7 @@ use Learning\Student\Api\Data\StudentSearchResultsInterface;
 use Magento\Framework\Api\SearchResults;
 
 /**
- * Service Data Object with Block search results.
+ * Service Data Object with Student search results.
  */
 class StudentSearchResults extends SearchResults implements StudentSearchResultsInterface
 {
