@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <preference for="Magestore\ProductManager\Api\ProductRepositoryInterface" type="Magestore\ProductManager\Model\ProductRepository"/>
+    <preference for="Magestore\ProductManager\Api\CustomerRepositoryInterface" type="Magestore\ProductManager\Model\CustomerRepository"/>
+    <preference for="Magestore\ProductManager\Api\Data\CustomerInterface" type="Magestore\ProductManager\Model\Customer"/>
+    <preference for="Magestore\ProductManager\Api\Data\CustomerSearchResultsInterface" type="Magestore\ProductManager\Model\CustomerSearchResults"/>
+    <preference for="Magestore\ProductManager\Api\OrderRepositoryInterface" type="Magestore\ProductManager\Model\OrderRepository"/>
+</config>

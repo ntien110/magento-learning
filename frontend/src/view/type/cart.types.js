@@ -1,0 +1,6 @@
+export const cartActionTypes={
+    ADD_TO_CART:'ADD_TO_CART',
+    UPDATE_SUBTOTAL:'UPDATE_SUBTOTAL',
+    SET_ITEM_AMOUNT:'SET_ITEM_AMOUNT',
+    CLEAR_CART:'CLEAR_CART'
+}

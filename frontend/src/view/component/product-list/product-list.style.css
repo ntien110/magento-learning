@@ -1,0 +1,38 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat( 4, minmax(250px, 1fr) );
+}
+.catalog .product-image {
+    width: 130px;
+    height: 130px
+}
+.catalog .item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 5px solid rgba(150, 150, 150, 0.8);
+    padding: 15px;
+    font-size: 15px;
+    text-align: center;
+    height: 24vh;
+    width: auto;
+}
+
+.search-bar{
+    margin-top: 2vh;
+    height: 5vh;
+    width: 70%;
+    float: left;
+    font-size: large;
+}
+
+.page-nav{
+    margin-left: 10vh;
+    float: right;
+}
+
+.page-nav button{
+    width: 50px;
+    font-size: large;
+}
+.page-nav input{
+    font-size: large;
+}
